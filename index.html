@@ -609,6 +609,24 @@
 
         .speech-segment {
             transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .speech-segment:hover {
+            background: var(--bg-accent);
+            border-radius: 4px;
+        }
+
+        .speech-segment:hover::before {
+            content: '▶';
+            position: absolute;
+            left: -1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-green);
+            font-size: 0.75rem;
+            opacity: 0.7;
         }
 
         .speech-segment.active {
@@ -617,6 +635,20 @@
             margin: -0.25rem -0.5rem;
             border-radius: 4px;
             border-left: 3px solid var(--highlight-border);
+            cursor: pointer;
+        }
+
+        .speech-segment.active:hover::before {
+            content: '⏸';
+        }
+
+        /* Insight items need padding adjustment for play icon */
+        .insight-item.speech-segment {
+            padding-left: 2rem;
+        }
+
+        .insight-item.speech-segment:hover::before {
+            left: 0.5rem;
         }
 
         /* Key Insights */
@@ -2035,7 +2067,7 @@
 
             <div class="footer-bottom">
                 <p class="footer-copyright" data-en="© 2026 SML Insights. All rights reserved." data-zh="© 2026 SML Insights. 保留所有權利。">© 2026 SML Insights. All rights reserved.</p>
-                <span class="footer-version" data-en="Version 1.3 | January 12, 2026" data-zh="版本 1.3 | 2026年1月12日">Version 1.3 | January 12, 2026</span>
+                <span class="footer-version" data-en="Version 1.5 | January 12, 2026" data-zh="版本 1.5 | 2026年1月12日">Version 1.5 | January 12, 2026</span>
             </div>
         </div>
     </footer>
@@ -2095,8 +2127,24 @@
             // Show selected article
             document.getElementById(`${articleId}-article`).classList.add('active');
             
+            // Sync article selector dropdown
+            const articleSelect = document.getElementById('articleSelect');
+            if (articleSelect) {
+                articleSelect.value = articleId;
+            }
+            
+            // Also sync quiz article selector
+            const quizArticleSelect = document.getElementById('quizArticleSelect');
+            if (quizArticleSelect) {
+                quizArticleSelect.value = articleId;
+                switchQuizArticle(articleId);
+            }
+            
             // Scroll to top of article
-            document.querySelector('.article-selector').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const selector = document.querySelector('.article-selector');
+            if (selector) {
+                selector.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
 
         // Tab switching
@@ -2205,15 +2253,30 @@
         function getVoice() {
             const voices = speechSynthesis.getVoices();
             
+            if (voices.length === 0) {
+                console.warn('No voices available yet');
+                return null;
+            }
+            
+            console.log('Available voices:', voices.map(v => `${v.name} (${v.lang})`));
+            
             if (currentLang === 'en') {
+                // Try British English male first
                 let voice = voices.find(v => v.lang === 'en-GB' && v.name.toLowerCase().includes('male'));
+                if (!voice) voice = voices.find(v => v.lang === 'en-GB' && v.name.toLowerCase().includes('daniel'));
                 if (!voice) voice = voices.find(v => v.lang === 'en-GB');
+                if (!voice) voice = voices.find(v => v.lang.startsWith('en-'));
                 if (!voice) voice = voices.find(v => v.lang.startsWith('en'));
+                console.log('Selected EN voice:', voice?.name);
                 return voice;
             } else {
+                // Try Yating/雅婷 for Traditional Chinese
                 let voice = voices.find(v => v.name.includes('Yating') || v.name.includes('雅婷'));
                 if (!voice) voice = voices.find(v => v.lang === 'zh-TW');
+                if (!voice) voice = voices.find(v => v.lang.includes('TW'));
+                if (!voice) voice = voices.find(v => v.lang.startsWith('zh-'));
                 if (!voice) voice = voices.find(v => v.lang.startsWith('zh'));
+                console.log('Selected ZH voice:', voice?.name);
                 return voice;
             }
         }
@@ -2231,14 +2294,79 @@
             }
         }
 
-        // Start speech
+        // Start speech from beginning
         function startSpeech() {
             initSegments();
+            addSegmentClickListeners();
             currentSegmentIndex = 0;
             speakSegment(currentSegmentIndex);
             
             // Add click listener for pause/resume
             document.addEventListener('click', handleGlobalClick);
+        }
+
+        // Start speech from specific segment index
+        function startSpeechFromSegment(index) {
+            // If already speaking, stop first
+            if (isSpeaking || isPaused) {
+                speechSynthesis.cancel();
+                if (progressInterval) {
+                    clearInterval(progressInterval);
+                    progressInterval = null;
+                }
+            }
+            
+            initSegments();
+            addSegmentClickListeners();
+            
+            if (index >= 0 && index < segments.length) {
+                currentSegmentIndex = index;
+                speakSegment(index);
+                
+                // Add click listener for pause/resume if not already added
+                document.removeEventListener('click', handleGlobalClick);
+                document.addEventListener('click', handleGlobalClick);
+            }
+        }
+
+        // Add click listeners to all segments
+        function addSegmentClickListeners() {
+            // Remove existing listeners first
+            document.querySelectorAll('.speech-segment').forEach(el => {
+                el.removeEventListener('click', handleSegmentClick);
+                el.addEventListener('click', handleSegmentClick);
+            });
+        }
+
+        // Handle segment click
+        function handleSegmentClick(event) {
+            event.stopPropagation();
+            
+            const clickedElement = event.currentTarget;
+            const segmentId = clickedElement.id;
+            
+            // Find the index of clicked segment
+            initSegments();
+            let clickedIndex = -1;
+            
+            for (let i = 0; i < segments.length; i++) {
+                if (segments[i].element.id === segmentId) {
+                    clickedIndex = i;
+                    break;
+                }
+            }
+            
+            if (clickedIndex === -1) return;
+            
+            // If clicking on currently playing segment, toggle pause
+            if (isSpeaking && currentSegmentIndex === clickedIndex) {
+                pauseSpeech();
+            } else if (isPaused && currentSegmentIndex === clickedIndex) {
+                resumeSpeech();
+            } else {
+                // Start playing from this segment
+                startSpeechFromSegment(clickedIndex);
+            }
         }
 
         // Speak a specific segment
@@ -2252,48 +2380,72 @@
             highlightSegment(index);
             
             const segment = segments[index];
-            currentUtterance = new SpeechSynthesisUtterance(segment.text);
             
-            const voice = getVoice();
-            if (voice) {
-                currentUtterance.voice = voice;
-            }
+            // Cancel any ongoing speech first
+            speechSynthesis.cancel();
             
-            currentUtterance.lang = currentLang === 'en' ? 'en-GB' : 'zh-TW';
-            currentUtterance.rate = 0.9;
-            currentUtterance.pitch = 1;
-            
-            // Calculate estimated duration for this segment
-            if (currentLang === 'en') {
-                const wordCount = segment.text.split(/\s+/).length;
-                estimatedDuration = (wordCount / 150) * 60 * 1000;
-            } else {
-                estimatedDuration = (segment.text.length / 200) * 60 * 1000;
-            }
-            
-            currentUtterance.onstart = () => {
-                isSpeaking = true;
-                isPaused = false;
-                speechStartTime = Date.now();
-                updateSpeechUI();
-                startProgressTracking();
-                autoScrollToSegment(index);
-            };
-            
-            currentUtterance.onend = () => {
-                if (!isPaused) {
-                    // Move to next segment
-                    speakSegment(index + 1);
+            // Small delay to ensure cancel is processed (Chrome bug workaround)
+            setTimeout(() => {
+                currentUtterance = new SpeechSynthesisUtterance(segment.text);
+                
+                const voice = getVoice();
+                if (voice) {
+                    currentUtterance.voice = voice;
                 }
-            };
-            
-            currentUtterance.onerror = (e) => {
-                if (e.error !== 'interrupted') {
-                    stopSpeech();
+                
+                currentUtterance.lang = currentLang === 'en' ? 'en-GB' : 'zh-TW';
+                currentUtterance.rate = 0.9;
+                currentUtterance.pitch = 1;
+                currentUtterance.volume = 1;
+                
+                // Calculate estimated duration for this segment
+                if (currentLang === 'en') {
+                    const wordCount = segment.text.split(/\s+/).length;
+                    estimatedDuration = (wordCount / 150) * 60 * 1000;
+                } else {
+                    estimatedDuration = (segment.text.length / 200) * 60 * 1000;
                 }
-            };
-            
-            speechSynthesis.speak(currentUtterance);
+                
+                currentUtterance.onstart = () => {
+                    isSpeaking = true;
+                    isPaused = false;
+                    speechStartTime = Date.now();
+                    updateSpeechUI();
+                    startProgressTracking();
+                    autoScrollToSegment(index);
+                };
+                
+                currentUtterance.onend = () => {
+                    if (!isPaused) {
+                        // Move to next segment
+                        speakSegment(index + 1);
+                    }
+                };
+                
+                currentUtterance.onerror = (e) => {
+                    console.error('Speech error:', e.error);
+                    if (e.error !== 'interrupted' && e.error !== 'canceled') {
+                        // Try to continue with next segment
+                        setTimeout(() => speakSegment(index + 1), 500);
+                    }
+                };
+                
+                // Chrome sometimes stops speaking after ~15 seconds, this is a workaround
+                // by using shorter chunks the browser handles it better
+                speechSynthesis.speak(currentUtterance);
+                
+                // Force update UI in case onstart doesn't fire
+                setTimeout(() => {
+                    if (speechSynthesis.speaking && !isSpeaking) {
+                        isSpeaking = true;
+                        isPaused = false;
+                        speechStartTime = Date.now();
+                        updateSpeechUI();
+                        startProgressTracking();
+                    }
+                }, 100);
+                
+            }, 50);
         }
 
         // Highlight current segment
@@ -2383,8 +2535,11 @@
 
         // Handle global click for pause/resume
         function handleGlobalClick(event) {
-            // Ignore clicks on control buttons
-            if (event.target.closest('#readAloudControls') || event.target.closest('#readAloudControls2')) {
+            // Ignore clicks on control buttons and speech segments (they have their own handlers)
+            if (event.target.closest('#readAloudControls') || 
+                event.target.closest('#readAloudControls2') ||
+                event.target.closest('#globalSpeechBar') ||
+                event.target.closest('.speech-segment')) {
                 return;
             }
             
@@ -2531,10 +2686,29 @@
             return mins + ':' + (secs < 10 ? '0' : '') + secs;
         }
 
-        // Load voices
-        if (speechSynthesis.onvoiceschanged !== undefined) {
-            speechSynthesis.onvoiceschanged = () => {};
+        // Load voices - need to wait for voices to be available
+        let voicesLoaded = false;
+        
+        function loadVoices() {
+            const voices = speechSynthesis.getVoices();
+            if (voices.length > 0) {
+                voicesLoaded = true;
+                console.log('Voices loaded:', voices.length);
+            }
         }
+        
+        // Initial load attempt
+        loadVoices();
+        
+        // Chrome requires this event
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = loadVoices;
+        }
+        
+        // Workaround for some browsers - try loading after a delay
+        setTimeout(loadVoices, 100);
+        setTimeout(loadVoices, 500);
+        setTimeout(loadVoices, 1000);
 
         // Quiz state per article
         let quizState = {
@@ -2548,10 +2722,28 @@
         function switchQuizArticle(articleId) {
             currentQuizArticle = articleId;
             
+            // Update quiz display
             document.querySelectorAll('.quiz-set').forEach(set => {
                 set.classList.remove('active');
             });
             document.getElementById(`quiz-${articleId}`).classList.add('active');
+            
+            // Also sync main article if different
+            if (currentArticle !== articleId) {
+                currentArticle = articleId;
+                
+                // Update main article display
+                document.querySelectorAll('.article-content').forEach(article => {
+                    article.classList.remove('active');
+                });
+                document.getElementById(`${articleId}-article`).classList.add('active');
+                
+                // Sync article selector dropdown
+                const articleSelect = document.getElementById('articleSelect');
+                if (articleSelect) {
+                    articleSelect.value = articleId;
+                }
+            }
         }
 
         // Select quiz option
@@ -2752,16 +2944,92 @@
         function applyFilters() {
             const category = document.getElementById('categoryFilter').value;
             const date = document.getElementById('dateFilter').value;
-            const keyword = document.getElementById('keywordSearch').value;
+            const keyword = document.getElementById('keywordSearch').value.toLowerCase();
             
-            // Switch to article tab after filtering
+            // Determine which article to show based on category
+            let targetArticle = null;
+            
+            // Category mapping
+            if (category === 'education') {
+                targetArticle = 'alpha';
+            } else if (category === 'leadership' || category === 'transformation' || category === 'strategy') {
+                targetArticle = 'mckinsey';
+            } else if (category === 'ai') {
+                // Both articles relate to AI, show based on keyword or default to both
+                if (keyword.includes('school') || keyword.includes('education') || keyword.includes('learn') || keyword.includes('student') || keyword.includes('教育') || keyword.includes('學生') || keyword.includes('學習')) {
+                    targetArticle = 'alpha';
+                } else if (keyword.includes('mckinsey') || keyword.includes('consult') || keyword.includes('麥肯錫') || keyword.includes('顧問')) {
+                    targetArticle = 'mckinsey';
+                }
+            }
+            
+            // Keyword search override
+            if (!targetArticle && keyword) {
+                if (keyword.includes('alpha') || keyword.includes('school') || keyword.includes('education') || keyword.includes('mastery') || keyword.includes('教育') || keyword.includes('學校') || keyword.includes('精熟')) {
+                    targetArticle = 'alpha';
+                } else if (keyword.includes('mckinsey') || keyword.includes('sternfels') || keyword.includes('consult') || keyword.includes('麥肯錫') || keyword.includes('顧問')) {
+                    targetArticle = 'mckinsey';
+                }
+            }
+            
+            // Switch to article tab
             switchTab('article');
             
-            const msg = currentLang === 'en'
-                ? `Filters applied! Showing results for:\nCategory: ${category}\nDate: ${date}\nKeyword: ${keyword || 'None'}`
-                : `已套用篩選！顯示結果：\n類別：${category}\n日期：${date}\n關鍵字：${keyword || '無'}`;
+            // If a specific article is targeted, switch to it
+            if (targetArticle) {
+                switchArticle(targetArticle);
+                document.getElementById('articleSelect').value = targetArticle;
+            }
             
-            alert(msg);
+            // Show feedback message
+            const articleNames = {
+                mckinsey: currentLang === 'en' ? 'McKinsey\'s Challenge' : '麥肯錫的挑戰',
+                alpha: currentLang === 'en' ? 'Alpha School' : 'Alpha School'
+            };
+            
+            const resultArticle = targetArticle ? articleNames[targetArticle] : (currentLang === 'en' ? 'All Articles' : '所有文章');
+            
+            const msg = currentLang === 'en'
+                ? `Search results:\nCategory: ${category}\nShowing: ${resultArticle}`
+                : `搜尋結果：\n類別：${category}\n顯示：${resultArticle}`;
+            
+            // Show a brief notification instead of alert
+            showNotification(msg);
+        }
+        
+        // Show notification
+        function showNotification(msg) {
+            // Create notification element if not exists
+            let notification = document.getElementById('searchNotification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.id = 'searchNotification';
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 150px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: var(--bg-secondary);
+                    border: 1px solid var(--accent-green);
+                    padding: 1rem 2rem;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                    z-index: 2000;
+                    white-space: pre-line;
+                    text-align: center;
+                    font-size: 0.9rem;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                `;
+                document.body.appendChild(notification);
+            }
+            
+            notification.textContent = msg;
+            notification.style.opacity = '1';
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+            }, 2500);
         }
     </script>
 </body>
