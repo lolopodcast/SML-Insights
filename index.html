@@ -1,0 +1,2768 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SML Insights | Strategy, Management, and Leadership</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Light Theme */
+            --bg-primary: #FAFAFA;
+            --bg-secondary: #FFFFFF;
+            --bg-accent: #F5F5F5;
+            --text-primary: #1A1A1A;
+            --text-secondary: #4A4A4A;
+            --text-muted: #8A8A8A;
+            --accent-green: #00A651;
+            --accent-green-dark: #008744;
+            --accent-gold: #C4A35A;
+            --border-color: #E5E5E5;
+            --shadow-soft: 0 2px 20px rgba(0,0,0,0.06);
+            --shadow-card: 0 4px 30px rgba(0,0,0,0.08);
+            --gradient-hero: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 50%, #1A1A1A 100%);
+            --thermometer-bg: #E0E0E0;
+            --thermometer-fill: #00A651;
+            --highlight-bg: rgba(0, 166, 81, 0.2);
+            --highlight-border: rgba(0, 166, 81, 0.6);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0D0D0D;
+            --bg-secondary: #1A1A1A;
+            --bg-accent: #242424;
+            --text-primary: #F5F5F5;
+            --text-secondary: #CCCCCC;
+            --text-muted: #888888;
+            --accent-green: #00D46A;
+            --accent-green-dark: #00A651;
+            --border-color: #333333;
+            --shadow-soft: 0 2px 20px rgba(0,0,0,0.3);
+            --shadow-card: 0 4px 30px rgba(0,0,0,0.4);
+            --gradient-hero: linear-gradient(135deg, #0D0D0D 0%, #1A1A1A 50%, #0D0D0D 100%);
+            --thermometer-bg: #333333;
+            --thermometer-fill: #00D46A;
+            --highlight-bg: rgba(0, 212, 106, 0.25);
+            --highlight-border: rgba(0, 212, 106, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Sans 3', 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo-area:hover {
+            opacity: 0.85;
+        }
+
+        .logo-mark {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-mark::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
+        }
+
+        .logo-mark span {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: 0.5px;
+        }
+
+        .brand-tagline {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toggle-btn:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .toggle-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-hero);
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            color: white;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .hero-accent {
+            width: 60px;
+            height: 4px;
+            background: var(--accent-green);
+            margin-top: 1rem;
+        }
+
+        /* Tab Navigation */
+        .tab-navigation {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 76px;
+            z-index: 999;
+        }
+
+        .tab-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            padding: 0 2rem;
+        }
+
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            background: var(--bg-accent);
+        }
+
+        .tab-btn.active {
+            color: var(--accent-green);
+            border-bottom-color: var(--accent-green);
+        }
+
+        .tab-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Search Section */
+        .search-section {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .search-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .search-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--accent-green);
+        }
+
+        .search-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .filter-group label {
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(0, 166, 81, 0.1);
+        }
+
+        .search-btn {
+            background: var(--accent-green);
+            color: white;
+            border: none;
+            padding: 0.875rem 2rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+
+        .search-btn:hover {
+            background: var(--accent-green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 166, 81, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .section-count {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: var(--bg-accent);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        /* Article Card */
+        .article-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .article-header {
+            background: var(--bg-accent);
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            justify-content: space-between;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .meta-item svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .category-badge {
+            background: var(--accent-green);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .article-body {
+            padding: 1.5rem;
+        }
+
+        .article-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .article-source {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .source-logo {
+            width: 32px;
+            height: 32px;
+            background: #CC0000;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.7rem;
+        }
+
+        .source-info {
+            font-size: 0.9rem;
+        }
+
+        .source-name {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .source-author {
+            color: var(--text-muted);
+        }
+
+        /* Read Aloud Section */
+        .read-aloud-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: var(--bg-accent);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .read-aloud-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-green);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .read-aloud-btn:hover {
+            background: var(--accent-green-dark);
+        }
+
+        .read-aloud-btn.playing {
+            background: #E53935;
+        }
+
+        .read-aloud-btn.paused {
+            background: var(--accent-gold);
+        }
+
+        .read-aloud-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .progress-thermometer {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 200px;
+        }
+
+        .thermometer-track {
+            flex: 1;
+            height: 8px;
+            background: var(--thermometer-bg);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .thermometer-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-gold));
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .progress-time {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: 'Source Sans 3', monospace;
+            min-width: 100px;
+            text-align: right;
+        }
+
+        .speech-status {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Highlight for speech */
+        .speech-highlight {
+            background: var(--highlight-bg);
+            border-left: 3px solid var(--highlight-border);
+            padding: 0.5rem 1rem;
+            margin: -0.5rem -1rem;
+            border-radius: 0 6px 6px 0;
+            transition: all 0.3s ease;
+        }
+
+        .speech-segment {
+            transition: all 0.3s ease;
+        }
+
+        .speech-segment.active {
+            background: var(--highlight-bg);
+            padding: 0.25rem 0.5rem;
+            margin: -0.25rem -0.5rem;
+            border-radius: 4px;
+            border-left: 3px solid var(--highlight-border);
+        }
+
+        /* Key Insights */
+        .insights-section {
+            margin-top: 1.5rem;
+        }
+
+        .insights-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .insight-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: var(--bg-accent);
+            border-left: 3px solid var(--accent-green);
+            margin-bottom: 1rem;
+            border-radius: 0 6px 6px 0;
+            transition: all 0.3s ease;
+        }
+
+        .insight-item.active {
+            background: var(--highlight-bg);
+            border-left-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(0, 166, 81, 0.15);
+        }
+
+        .insight-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            min-width: 30px;
+        }
+
+        .insight-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .insight-content p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .quiz-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .quiz-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .quiz-title svg {
+            color: var(--accent-gold);
+        }
+
+        .quiz-progress {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .quiz-progress-dots {
+            display: flex;
+            gap: 0.35rem;
+        }
+
+        .quiz-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .quiz-dot.active {
+            background: var(--accent-green);
+        }
+
+        .quiz-dot.completed {
+            background: var(--accent-gold);
+        }
+
+        .question-container {
+            display: none;
+        }
+
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .quiz-question {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            background: var(--bg-accent);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--accent-green);
+            background: var(--bg-primary);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--accent-green);
+            background: rgba(0, 166, 81, 0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--accent-green);
+            background: rgba(0, 166, 81, 0.15);
+        }
+
+        .quiz-option.incorrect {
+            border-color: #E53935;
+            background: rgba(229, 57, 53, 0.1);
+        }
+
+        .option-marker {
+            width: 28px;
+            height: 28px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .quiz-option:hover .option-marker,
+        .quiz-option.selected .option-marker {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .quiz-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            display: none;
+            font-size: 0.95rem;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.success {
+            background: rgba(0, 166, 81, 0.1);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .quiz-feedback.error {
+            background: rgba(229, 57, 53, 0.1);
+            border: 1px solid #E53935;
+            color: #E53935;
+        }
+
+        .quiz-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .quiz-btn {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .quiz-btn:hover {
+            opacity: 0.9;
+        }
+
+        .quiz-btn.secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .quiz-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .quiz-score {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .score-display {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .score-label {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .footer-logo .logo-mark {
+            width: 40px;
+            height: 40px;
+        }
+
+        .footer-logo .logo-mark span {
+            font-size: 1rem;
+        }
+
+        .footer-description {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .footer-section h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .editor-card {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-accent);
+            border-radius: 8px;
+            align-items: flex-start;
+        }
+
+        .editor-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-green-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .editor-info h5 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .editor-link {
+            font-size: 0.8rem;
+            color: var(--accent-green);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .editor-link:hover {
+            color: var(--accent-green-dark);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-version {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: var(--bg-accent);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+        }
+
+        /* Click to pause overlay hint */
+        .pause-hint {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .pause-hint.show {
+            opacity: 1;
+        }
+
+        /* Article Selector */
+        .article-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem 1.5rem;
+            background: var(--bg-accent);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .article-selector label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .article-selector select {
+            flex: 1;
+            max-width: 400px;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .article-selector select:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(0, 166, 81, 0.1);
+        }
+
+        /* Article Content Switching */
+        .article-content {
+            display: none;
+        }
+
+        .article-content.active {
+            display: block;
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        /* Global Speech Control Bar */
+        .global-speech-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            border-top: 2px solid var(--accent-green);
+            padding: 0.75rem 2rem;
+            display: none;
+            align-items: center;
+            gap: 1rem;
+            z-index: 1001;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+            animation: slideUp 0.3s ease;
+        }
+
+        .global-speech-bar.active {
+            display: flex;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .global-speech-info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 0;
+        }
+
+        .global-speech-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 300px;
+        }
+
+        .global-speech-progress {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 150px;
+        }
+
+        .global-thermometer {
+            flex: 1;
+            height: 6px;
+            background: var(--thermometer-bg);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .global-thermometer-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-gold));
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .global-speech-time {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: monospace;
+            min-width: 80px;
+        }
+
+        .global-speech-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .global-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .global-btn:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .global-btn.play-pause {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: white;
+        }
+
+        .global-btn.play-pause:hover {
+            background: var(--accent-green-dark);
+        }
+
+        .global-btn.play-pause.paused {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+
+        .global-btn.stop {
+            background: transparent;
+        }
+
+        .global-btn.stop:hover {
+            background: #E53935;
+            border-color: #E53935;
+            color: white;
+        }
+
+        .global-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Quiz Article Selector */
+        .quiz-article-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-accent);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .quiz-article-selector label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .quiz-article-selector select {
+            flex: 1;
+            max-width: 350px;
+            padding: 0.6rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        /* Quiz sets */
+        .quiz-set {
+            display: none;
+        }
+
+        .quiz-set.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .global-speech-bar {
+                flex-wrap: wrap;
+                padding: 0.75rem 1rem;
+            }
+
+            .global-speech-title {
+                max-width: 150px;
+            }
+
+            .global-speech-info {
+                width: 100%;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .header-controls {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .logo-area {
+                flex-direction: column;
+            }
+
+            .hero {
+                padding: 2rem 1.5rem;
+            }
+
+            .tab-container {
+                overflow-x: auto;
+                padding: 0 1rem;
+            }
+
+            .tab-btn {
+                padding: 0.875rem 1rem;
+                white-space: nowrap;
+            }
+
+            .search-section,
+            .main-content {
+                padding: 1.5rem;
+            }
+
+            .article-body {
+                padding: 1.25rem;
+            }
+
+            .article-header {
+                padding: 1rem 1.25rem;
+            }
+
+            .insight-item {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .read-aloud-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .progress-thermometer {
+                width: 100%;
+            }
+
+            .tab-navigation {
+                top: 70px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .article-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .insight-item {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .insight-item:nth-child(1) { animation-delay: 0.1s; }
+        .insight-item:nth-child(2) { animation-delay: 0.2s; }
+        .insight-item:nth-child(3) { animation-delay: 0.3s; }
+        .insight-item:nth-child(4) { animation-delay: 0.4s; }
+        .insight-item:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <!-- Top Anchor -->
+    <div id="top"></div>
+
+    <!-- Pause Hint Overlay -->
+    <div class="pause-hint" id="pauseHint">
+        <span data-en="⏸ Paused - Click to resume" data-zh="⏸ 已暫停 - 點擊繼續">⏸ Paused - Click to resume</span>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#top" class="logo-area" onclick="scrollToTop(event)">
+                <div class="logo-mark">
+                    <span>SML</span>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">SML Insights</span>
+                    <span class="brand-tagline">Strategy, Management, and Leadership</span>
+                </div>
+            </a>
+            <div class="header-controls">
+                <button class="toggle-btn" id="langToggle" onclick="toggleLanguage()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                    <span id="langLabel">中文</span>
+                </button>
+                <button class="toggle-btn" id="themeToggle" onclick="toggleTheme()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                    <span id="themeLabel" data-en="Dark" data-zh="深色">Dark</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title" data-en="News & Insights" data-zh="新聞新知">News & Insights</h1>
+            <p class="hero-subtitle" data-en="Curated intelligence for strategic leaders" data-zh="為策略領導者精選的商業洞察">Curated intelligence for strategic leaders</p>
+            <div class="hero-accent"></div>
+        </div>
+    </section>
+
+    <!-- Tab Navigation -->
+    <nav class="tab-navigation">
+        <div class="tab-container">
+            <button class="tab-btn active" data-tab="search" onclick="switchTab('search')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <span data-en="Search" data-zh="搜尋區">Search</span>
+            </button>
+            <button class="tab-btn" data-tab="article" onclick="switchTab('article')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                </svg>
+                <span data-en="Article" data-zh="主文區">Article</span>
+            </button>
+            <button class="tab-btn" data-tab="quiz" onclick="switchTab('quiz')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                <span data-en="Quiz" data-zh="測驗區">Quiz</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Tab Content: Search -->
+    <div class="tab-content active" id="tab-search">
+        <section class="search-section">
+            <div class="search-container">
+                <div class="search-header">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <span class="search-title" data-en="Search & Filter" data-zh="搜尋與篩選">Search & Filter</span>
+                </div>
+                <div class="filter-grid">
+                    <div class="filter-group">
+                        <label data-en="Category" data-zh="類別">Category</label>
+                        <select id="categoryFilter">
+                            <option value="all" data-en="All Categories" data-zh="所有類別">All Categories</option>
+                            <option value="leadership" data-en="Leadership" data-zh="領導力">Leadership</option>
+                            <option value="strategy" data-en="Strategy" data-zh="策略">Strategy</option>
+                            <option value="transformation" data-en="Transformation" data-zh="轉型">Transformation</option>
+                            <option value="ai" data-en="AI & Technology" data-zh="AI 與科技">AI & Technology</option>
+                            <option value="talent" data-en="Talent & HR" data-zh="人才與人力資源">Talent & HR</option>
+                            <option value="education" data-en="Education" data-zh="教育">Education</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label data-en="Date Range" data-zh="日期範圍">Date Range</label>
+                        <select id="dateFilter">
+                            <option value="all" data-en="All Time" data-zh="所有時間">All Time</option>
+                            <option value="week" data-en="Past Week" data-zh="過去一週">Past Week</option>
+                            <option value="month" data-en="Past Month" data-zh="過去一個月">Past Month</option>
+                            <option value="quarter" data-en="Past Quarter" data-zh="過去一季">Past Quarter</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label data-en="Keyword Search" data-zh="關鍵字搜尋">Keyword Search</label>
+                        <input type="text" id="keywordSearch" data-placeholder-en="Search articles..." data-placeholder-zh="搜尋文章..." placeholder="Search articles...">
+                    </div>
+                </div>
+                <button class="search-btn" onclick="applyFilters()" data-en="Apply Filters" data-zh="套用篩選">Apply Filters</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Tab Content: Article -->
+    <div class="tab-content" id="tab-article">
+        <main class="main-content">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Featured Insights" data-zh="精選洞察">Featured Insights</h2>
+                <span class="section-count" data-en="2 Articles" data-zh="2 篇文章">2 Articles</span>
+            </div>
+
+            <!-- Article Selector -->
+            <div class="article-selector">
+                <label data-en="Select Article:" data-zh="選擇文章：">Select Article:</label>
+                <select id="articleSelect" onchange="switchArticle(this.value)">
+                    <option value="mckinsey" data-en="McKinsey's Challenge: AI Transformation" data-zh="麥肯錫的挑戰：AI轉型">McKinsey's Challenge: AI Transformation</option>
+                    <option value="alpha" data-en="Alpha School: A New Approach to Education" data-zh="Alpha School：教育新模式">Alpha School: A New Approach to Education</option>
+                </select>
+            </div>
+
+            <!-- Article Card: McKinsey -->
+            <article class="article-card article-content active" id="mckinsey-article">
+                <div class="article-header">
+                    <span class="category-badge" data-en="Leadership · Transformation" data-zh="領導力 · 轉型">Leadership · Transformation</span>
+                    <div class="article-meta">
+                        <span class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <span data-en="January 2026" data-zh="2026年1月">January 2026</span>
+                        </span>
+                        <span class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span data-en="12 min read" data-zh="閱讀時間 12 分鐘">12 min read</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="article-body">
+                    <h3 class="article-title" data-en="McKinsey's Challenge: When Clients Turn to AI, How Do We Transform?" data-zh="麥肯錫的挑戰：當客戶都去問AI，我們如何轉型？">McKinsey's Challenge: When Clients Turn to AI, How Do We Transform?</h3>
+                    
+                    <div class="article-source">
+                        <div class="source-logo">HBR</div>
+                        <div class="source-info">
+                            <span class="source-name">Harvard Business Review</span>
+                            <span class="source-author" data-en=" · Interview by Adi Ignatius" data-zh=" · 專訪者：殷阿笛 (Adi Ignatius)"> · Interview by Adi Ignatius</span>
+                        </div>
+                    </div>
+
+                    <!-- Read Aloud Section -->
+                    <div class="read-aloud-section" id="readAloudControls">
+                        <button class="read-aloud-btn" id="readAloudBtn" onclick="toggleSpeech(event)">
+                            <svg id="playIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                            <span id="readAloudLabel" data-en="Read Aloud" data-zh="語音朗讀">Read Aloud</span>
+                        </button>
+                        <div class="progress-thermometer">
+                            <div class="thermometer-track">
+                                <div class="thermometer-progress" id="speechProgress"></div>
+                            </div>
+                            <span class="progress-time" id="speechTime">0:00 / 0:00</span>
+                        </div>
+                        <span class="speech-status" id="speechStatus" data-en="Click anywhere to pause" data-zh="點擊任意處暫停"></span>
+                    </div>
+
+                    <p class="speech-segment" id="segment-0" data-en="As McKinsey celebrates its centennial, Global Managing Partner Bob Sternfels discusses how the world's most influential consulting firm is reinventing itself for the AI era—shifting from advisory services to outcomes-based partnerships while rebuilding trust after high-profile scandals." data-zh="在麥肯錫迎來創立百年之際，全球管理合夥人鮑伯·斯特恩費爾斯分享這家全球最具影響力的顧問公司如何為AI時代重塑自我，從顧問服務轉向成果導向的合作模式，同時在經歷重大醜聞後重建信任。" style="color: var(--text-secondary); margin-bottom: 1.5rem;">As McKinsey celebrates its centennial, Global Managing Partner Bob Sternfels discusses how the world's most influential consulting firm is reinventing itself for the AI era—shifting from advisory services to outcomes-based partnerships while rebuilding trust after high-profile scandals.</p>
+
+                    <!-- Key Insights -->
+                    <div class="insights-section">
+                        <h4 class="insights-title" data-en="5 Key Insights" data-zh="五大關鍵洞察">5 Key Insights</h4>
+                        
+                        <div class="insight-item speech-segment" id="segment-1" data-en="From Advisory to Outcomes Model: McKinsey is rapidly shifting from pure advisory work to an outcomes-based model where they underwrite business case results. Currently, about one-third of revenue comes from this approach, with goals to exceed 50% during Sternfels' tenure." data-zh="從顧問模式到成果承諾模式：麥肯錫正快速從純粹顧問工作轉向成果導向模式，承諾達成商業案例的成果。目前約三分之一營收來自此模式，目標是在斯特恩費爾斯任期內超過50%。">
+                            <span class="insight-number">01</span>
+                            <div class="insight-content">
+                                <h4 data-en="From Advisory to Outcomes Model" data-zh="從「顧問模式」到「成果承諾模式」">From Advisory to Outcomes Model</h4>
+                                <p data-en="McKinsey is rapidly shifting from pure advisory work to an outcomes-based model where they underwrite business case results. Currently, about one-third of revenue comes from this approach, with goals to exceed 50% during Sternfels' tenure." data-zh="麥肯錫正快速從純粹顧問工作轉向成果導向模式，承諾達成商業案例的成果。目前約三分之一營收來自此模式，目標是在斯特恩費爾斯任期內超過50%。">McKinsey is rapidly shifting from pure advisory work to an outcomes-based model where they underwrite business case results. Currently, about one-third of revenue comes from this approach, with goals to exceed 50% during Sternfels' tenure.</p>
+                            </div>
+                        </div>
+
+                        <div class="insight-item speech-segment" id="segment-2" data-en="Resilience Over Perfect Grades: AI analysis of 20 years of hiring data revealed that candidates who experienced setbacks and recovered are more likely to become partners. McKinsey now actively tests for resilience in environments where no one has pattern recognition." data-zh="韌性比完美成績更重要：透過AI分析20年招聘數據發現，經歷挫折並復原的求職者更有可能成為合夥人。麥肯錫現在會刻意測試求職者在完全陌生環境中的韌性。">
+                            <span class="insight-number">02</span>
+                            <div class="insight-content">
+                                <h4 data-en="Resilience Over Perfect Grades" data-zh="「韌性」比「完美成績」更重要">Resilience Over Perfect Grades</h4>
+                                <p data-en="AI analysis of 20 years of hiring data revealed that candidates who experienced setbacks and recovered are more likely to become partners. McKinsey now actively tests for resilience in environments where no one has pattern recognition." data-zh="透過AI分析20年招聘數據發現，經歷挫折並復原的求職者更有可能成為合夥人。麥肯錫現在會刻意測試求職者在完全陌生環境中的韌性。">AI analysis of 20 years of hiring data revealed that candidates who experienced setbacks and recovered are more likely to become partners. McKinsey now actively tests for resilience in environments where no one has pattern recognition.</p>
+                            </div>
+                        </div>
+
+                        <div class="insight-item speech-segment" id="segment-3" data-en="The 25 Squared Workforce Strategy: McKinsey is growing client-facing roles by 25% while reducing back-office positions by 25%. AI saved 1.5 million hours in search and synthesis work last year, enabling consultants to focus on higher-value problems." data-zh="25平方人力重組策略：麥肯錫將面對客戶的職位增加25%，同時將後台職位削減25%。AI去年節省了150萬小時的搜尋與分析工作，讓顧問能專注於更高價值的問題。">
+                            <span class="insight-number">03</span>
+                            <div class="insight-content">
+                                <h4 data-en="The '25 Squared' Workforce Strategy" data-zh="「25平方」人力重組策略">The "25 Squared" Workforce Strategy</h4>
+                                <p data-en="McKinsey is growing client-facing roles by 25% while reducing back-office positions by 25%. AI saved 1.5 million hours in search and synthesis work last year, enabling consultants to focus on higher-value problems." data-zh="麥肯錫將面對客戶的職位增加25%，同時將後台職位削減25%。AI去年節省了150萬小時的搜尋與分析工作，讓顧問能專注於更高價值的問題。">McKinsey is growing client-facing roles by 25% while reducing back-office positions by 25%. AI saved 1.5 million hours in search and synthesis work last year, enabling consultants to focus on higher-value problems.</p>
+                            </div>
+                        </div>
+
+                        <div class="insight-item speech-segment" id="segment-4" data-en="CEOs' Top Two Concerns: First, how do I get value from AI technology? Second, how do I build institutional resilience? Leaders increasingly accept that things will never return to how they were before." data-zh="CEO們最關心的兩大議題：第一，如何從AI技術中獲得價值？第二，如何建立組織韌性？領導者愈來愈意識到，事情不會回到從前了。">
+                            <span class="insight-number">04</span>
+                            <div class="insight-content">
+                                <h4 data-en="CEOs' Top Two Concerns" data-zh="CEO們最關心的兩大議題">CEOs' Top Two Concerns</h4>
+                                <p data-en="First: 'How do I get value from AI technology?' Second: 'How do I build institutional resilience?' Leaders increasingly accept that things will never return to how they were before." data-zh="第一：「如何從AI技術中獲得價值？」第二：「如何建立組織韌性？」領導者愈來愈意識到，事情不會回到從前了。">First: "How do I get value from AI technology?" Second: "How do I build institutional resilience?" Leaders increasingly accept that things will never return to how they were before.</p>
+                            </div>
+                        </div>
+
+                        <div class="insight-item speech-segment" id="segment-5" data-en="Learning from Scandals: McKinsey conducted deep soul-searching after the opioid crisis scandal, implementing stricter client selection standards. However, they also learned to push back on criticism when they believe they're right, such as their work with hard-to-abate sectors on climate transition." data-zh="從醜聞中學習：麥肯錫在鴉片類藥物危機醜聞後進行了深刻的靈魂拷問，實施更嚴格的客戶篩選標準。但他們也學會在認為自己正確時堅持立場，例如在氣候轉型議題上與難以減排的產業合作。">
+                            <span class="insight-number">05</span>
+                            <div class="insight-content">
+                                <h4 data-en="Learning from Scandals: Humble Yet Courageous" data-zh="從醜聞中學習：謙卑但勇敢">Learning from Scandals: Humble Yet Courageous</h4>
+                                <p data-en="McKinsey conducted deep soul-searching after the opioid crisis scandal, implementing stricter client selection standards. However, they also learned to push back on criticism when they believe they're right—such as their work with hard-to-abate sectors on climate transition." data-zh="麥肯錫在鴉片類藥物危機醜聞後進行了深刻的靈魂拷問，實施更嚴格的客戶篩選標準。但他們也學會在認為自己正確時堅持立場——例如在氣候轉型議題上與難以減排的產業合作。">McKinsey conducted deep soul-searching after the opioid crisis scandal, implementing stricter client selection standards. However, they also learned to push back on criticism when they believe they're right—such as their work with hard-to-abate sectors on climate transition.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article Card: Alpha School -->
+            <article class="article-card article-content" id="alpha-article">
+                <div class="article-header">
+                    <span class="category-badge" data-en="Education · AI" data-zh="教育 · AI">Education · AI</span>
+                    <div class="article-meta">
+                        <span class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <span data-en="January 2026" data-zh="2026年1月">January 2026</span>
+                        </span>
+                        <span class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span data-en="15 min read" data-zh="閱讀時間 15 分鐘">15 min read</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="article-body">
+                    <h3 class="article-title" data-en="Alpha School: A New Approach To Education" data-zh="Alpha School：教育新模式">Alpha School: A New Approach To Education</h3>
+                    
+                    <div class="article-source">
+                        <div class="source-logo" style="background: #6B46C1;">α</div>
+                        <div class="source-info">
+                            <span class="source-name">Alpha School</span>
+                            <span class="source-author" data-en=" · MacKenzie Price" data-zh=" · MacKenzie Price"> · MacKenzie Price</span>
+                        </div>
+                    </div>
+
+                    <!-- Read Aloud Section -->
+                    <div class="read-aloud-section" id="readAloudControls2">
+                        <button class="read-aloud-btn" id="readAloudBtn2" onclick="toggleSpeech(event)">
+                            <svg id="playIcon2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                            <span id="readAloudLabel2" data-en="Read Aloud" data-zh="語音朗讀">Read Aloud</span>
+                        </button>
+                        <div class="progress-thermometer">
+                            <div class="thermometer-track">
+                                <div class="thermometer-progress" id="speechProgress2"></div>
+                            </div>
+                            <span class="progress-time" id="speechTime2">0:00 / 0:00</span>
+                        </div>
+                        <span class="speech-status" id="speechStatus2" data-en="Click anywhere to pause" data-zh="點擊任意處暫停"></span>
+                    </div>
+
+                    <p class="speech-segment alpha-segment" id="alpha-segment-0" data-en="Alpha School represents a revolutionary approach to K-12 education, combining AI-powered personalized learning with a mastery-based progression model. Students complete core academics in just 2 hours daily, freeing time for sports, arts, and life skills development." data-zh="Alpha School 代表了 K-12 教育的革命性方法，結合 AI 驅動的個人化學習與精熟制進階模式。學生每天只需 2 小時完成核心學科，釋放時間進行運動、藝術和生活技能發展。" style="color: var(--text-secondary); margin-bottom: 1.5rem;">Alpha School represents a revolutionary approach to K-12 education, combining AI-powered personalized learning with a mastery-based progression model. Students complete core academics in just 2 hours daily, freeing time for sports, arts, and life skills development.</p>
+
+                    <!-- Part 1: Educational Model -->
+                    <div class="insights-section">
+                        <h4 class="insights-title" data-en="Part I: Educational Model" data-zh="第一部分：教育模式">Part I: Educational Model</h4>
+                        
+                        <div class="insight-item speech-segment alpha-segment" id="alpha-segment-1" data-en="From Time-Based to Mastery-Based: The core problem with traditional education is the time-based model where students advance by age rather than mastery. This creates cumulative knowledge gaps—a 7th grader failing chemistry may not be struggling with chemistry itself, but with 4th grade fractions they never mastered. Alpha requires 90% mastery before advancing to the next unit, fundamentally breaking the 'attendance equals completion' paradigm." data-zh="從「時間制」轉向「精熟制」：傳統教育的核心問題是根深蒂固的時間制模式——學生按年齡升級而非按精熟程度升級。這造成累積的知識缺口：一個七年級學生化學不及格，可能不是因為化學太難，而是因為他從未掌握四年級的分數。Alpha 要求學生達到 90% 精熟度才能進入下一單元，從根本上打破「聽完就過關」的舊模式。">
+                            <span class="insight-number">01</span>
+                            <div class="insight-content">
+                                <h4 data-en="From Time-Based to Mastery-Based" data-zh="從「時間制」轉向「精熟制」">From Time-Based to Mastery-Based</h4>
+                                <p data-en="The core problem with traditional education is the time-based model where students advance by age rather than mastery. This creates cumulative knowledge gaps—a 7th grader failing chemistry may not be struggling with chemistry itself, but with 4th grade fractions they never mastered. Alpha requires 90% mastery before advancing to the next unit, fundamentally breaking the 'attendance equals completion' paradigm." data-zh="傳統教育的核心問題是根深蒂固的時間制模式——學生按年齡升級而非按精熟程度升級。這造成累積的知識缺口：一個七年級學生化學不及格，可能不是因為化學太難，而是因為他從未掌握四年級的分數。Alpha 要求學生達到 90% 精熟度才能進入下一單元，從根本上打破「聽完就過關」的舊模式。">The core problem with traditional education is the time-based model where students advance by age rather than mastery. This creates cumulative knowledge gaps—a 7th grader failing chemistry may not be struggling with chemistry itself, but with 4th grade fractions they never mastered. Alpha requires 90% mastery before advancing to the next unit, fundamentally breaking the "attendance equals completion" paradigm.</p>
+                            </div>
+                        </div>
+
+                        <div class="insight-item speech-segment alpha-segment" id="alpha-segment-2" data-en="Time Freedom as Core Motivation: The biggest effect size comes from giving time back to students. Framing the goal as '2 hours of learning' lets kids have time for sports, arts, and workshops—this motivates more than simply promising 'you'll learn 2x faster.' This overturns the traditional assumption that 'more time = more learning,' replacing it with 'focused short learning + rich extracurricular development.'" data-zh="「時間回饋」作為核心激勵機制：最大的效應量來自於把時間還給學生。將目標定位為「2 小時學習」，讓孩子們有時間去運動、藝術和工作坊，這比單純承諾「讓你學得快 2 倍」更有激勵效果。這顛覆了「花越多時間=學越多」的傳統假設，改為「專注的短時間學習 + 豐富的課外發展」。">
+                            <span class="insight-number">02</span>
+                            <div class="insight-content">
+                                <h4 data-en="Time Freedom as Core Motivation" data-zh="「時間回饋」作為核心激勵機制">Time Freedom as Core Motivation</h4>
+                                <p data-en="The biggest effect size comes from giving time back to students. Framing the goal as '2 hours of learning' lets kids have time for sports, arts, and workshops—this motivates more than simply promising 'you'll learn 2x faster.' This overturns the traditional assumption that 'more time = more learning,' replacing it with 'focused short learning + rich extracurricular development.'" data-zh="最大的效應量來自於把時間還給學生。將目標定位為「2 小時學習」，讓孩子們有時間去運動、藝術和工作坊，這比單純承諾「讓你學得快 2 倍」更有激勵效果。這顛覆了「花越多時間=學越多」的傳統假設，改為「專注的短時間學習 + 豐富的課外發展」。">The biggest effect size comes from giving time back to students. Framing the goal as "2 hours of learning" lets kids have time for sports, arts, and workshops—this motivates more than simply promising "you'll learn 2x faster." This overturns the traditional assumption that "more time = more learning," replacing it with "focused short learning + rich extracurricular development."</p>
+                            </div>
+                        </div>
+
+                        <div class="insight-item speech-segment alpha-segment" id="alpha-segment-3" data-en="Guides Replace Teachers: At Alpha School, teachers transform from traditional grading and lesson planning roles into supporting students' emotional and motivational needs while teaching life skills. This shift frees teacher time to mentor, motivate, and coach students into becoming self-directed learners. Subject instruction goes to AI; humans focus on emotional connection and character development that AI cannot replace." data-zh="「引導者」取代「教師」的角色重塑：在 Alpha School，教師從傳統的批改作業和編寫教案的角色，轉變為支持學生情感和動機需求並教授生活技能。這種轉變釋放了教師的時間，讓他們能指導、激勵和輔導學生成為自主學習者。學科教學交給 AI，人類專注於 AI 無法取代的情感連結與人格培養。">
+                            <span class="insight-number">03</span>
+                            <div class="insight-content">
+                                <h4 data-en="Guides Replace Teachers" data-zh="「引導者」取代「教師」的角色重塑">Guides Replace Teachers</h4>
+                                <p data-en="At Alpha School, teachers transform from traditional grading and lesson planning roles into supporting students' emotional and motivational needs while teaching life skills. This shift frees teacher time to mentor, motivate, and coach students into becoming self-directed learners. Subject instruction goes to AI; humans focus on emotional connection and character development that AI cannot replace." data-zh="在 Alpha School，教師從傳統的批改作業和編寫教案的角色，轉變為支持學生情感和動機需求並教授生活技能。這種轉變釋放了教師的時間，讓他們能指導、激勵和輔導學生成為自主學習者。學科教學交給 AI，人類專注於 AI 無法取代的情感連結與人格培養。">At Alpha School, teachers transform from traditional grading and lesson planning roles into supporting students' emotional and motivational needs while teaching life skills. This shift frees teacher time to mentor, motivate, and coach students into becoming self-directed learners. Subject instruction goes to AI; humans focus on emotional connection and character development that AI cannot replace.</p>
+                            </div>
+                        </div>
+
+                        <div class="insight-item speech-segment alpha-segment" id="alpha-segment-4" data-en="Age Grade ≠ Knowledge Grade: Many 'A students' enter anywhere from 1 year ahead to 3 years behind; 'B students' may be 3 to 7 years behind. Alpha starts with diagnosis and can quickly help them catch up. This reveals the true ability gaps hidden by traditional report cards and explains why many students 'suddenly' fall behind—it's actually long-accumulated foundational gaps." data-zh="「年齡年級 ≠ 知識年級」的診斷思維：許多「A 等生」入學時領先 1 年到落後 3 年不等；「B 等生」則可能落後 3 到 7 年。Alpha 從診斷開始，並能快速讓他們趕上進度。這揭示了傳統成績單掩蓋的真實能力落差，也說明為何許多學生「突然」跟不上——其實是長期累積的基礎缺口。">
+                            <span class="insight-number">04</span>
+                            <div class="insight-content">
+                                <h4 data-en="Age Grade ≠ Knowledge Grade" data-zh="「年齡年級 ≠ 知識年級」的診斷思維">Age Grade ≠ Knowledge Grade</h4>
+                                <p data-en="Many 'A students' enter anywhere from 1 year ahead to 3 years behind; 'B students' may be 3 to 7 years behind. Alpha starts with diagnosis and can quickly help them catch up. This reveals the true ability gaps hidden by traditional report cards and explains why many students 'suddenly' fall behind—it's actually long-accumulated foundational gaps." data-zh="許多「A 等生」入學時領先 1 年到落後 3 年不等；「B 等生」則可能落後 3 到 7 年。Alpha 從診斷開始，並能快速讓他們趕上進度。這揭示了傳統成績單掩蓋的真實能力落差，也說明為何許多學生「突然」跟不上——其實是長期累積的基礎缺口。">Many "A students" enter anywhere from 1 year ahead to 3 years behind; "B students" may be 3 to 7 years behind. Alpha starts with diagnosis and can quickly help them catch up. This reveals the true ability gaps hidden by traditional report cards and explains why many students "suddenly" fall behind—it's actually long-accumulated foundational gaps.</p>
+                            </div>
+                        </div>
+
+                        <div class="insight-item speech-segment alpha-segment" id="alpha-segment-5" data-en="High Standards Create Happiness: Contrary to the current trend of lowering expectations to avoid struggle, the key to children's confidence and happiness is achieving high standards through effort and resilience. Alpha's data shows about 96% of students report loving school, proving that rigorous demands and learning enthusiasm are not contradictory." data-zh="高標準創造快樂，而非降低期望：與當前降低期望以避免掙扎的趨勢相反，孩子自信和快樂的關鍵是透過努力和韌性達成高標準。Alpha 的數據顯示約 96% 學生表示喜愛學校，證明嚴格要求與學習熱情並不矛盾。">
+                            <span class="insight-number">05</span>
+                            <div class="insight-content">
+                                <h4 data-en="High Standards Create Happiness" data-zh="高標準創造快樂，而非降低期望">High Standards Create Happiness</h4>
+                                <p data-en="Contrary to the current trend of lowering expectations to avoid struggle, the key to children's confidence and happiness is achieving high standards through effort and resilience. Alpha's data shows about 96% of students report loving school, proving that rigorous demands and learning enthusiasm are not contradictory." data-zh="與當前降低期望以避免掙扎的趨勢相反，孩子自信和快樂的關鍵是透過努力和韌性達成高標準。Alpha 的數據顯示約 96% 學生表示喜愛學校，證明嚴格要求與學習熱情並不矛盾。">Contrary to the current trend of lowering expectations to avoid struggle, the key to children's confidence and happiness is achieving high standards through effort and resilience. Alpha's data shows about 96% of students report loving school, proving that rigorous demands and learning enthusiasm are not contradictory.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Part 2: AI Applications -->
+                    <div class="insights-section" style="margin-top: 2rem;">
+                        <h4 class="insights-title" data-en="Part II: AI Applications" data-zh="第二部分：AI 具體應用">Part II: AI Applications</h4>
+                        
+                        <div class="insight-item speech-segment alpha-segment" id="alpha-segment-6" data-en="Precise Diagnosis—Finding the Real Problem: The AI tutor brings students to the exact lessons they need to learn. The system identifies students' true knowledge gaps—a student stuck at 740 on SAT math was diagnosed by Alpha as lacking 3rd grade arithmetic fluency; after reinforcement, they jumped to 790. AI doesn't teach more; it teaches 'the right things.'" data-zh="精準診斷：找出「真正的問題在哪裡」：AI 家教將學生帶到他們需要學習的精確課程。系統能識別學生真正的知識缺口——一個 SAT 數學卡在 740 分的學生，經 Alpha 診斷發現是缺少三年級的基礎運算流暢度，補強後跳升至 790 分。AI 不是教更多，而是教「對的東西」。">
+                            <span class="insight-number">06</span>
+                            <div class="insight-content">
+                                <h4 data-en="Precise Diagnosis: Finding the Real Problem" data-zh="精準診斷：找出「真正的問題在哪裡」">Precise Diagnosis: Finding the Real Problem</h4>
+                                <p data-en="The AI tutor brings students to the exact lessons they need to learn. The system identifies students' true knowledge gaps—a student stuck at 740 on SAT math was diagnosed by Alpha as lacking 3rd grade arithmetic fluency; after reinforcement, they jumped to 790. AI doesn't teach more; it teaches 'the right things.'" data-zh="AI 家教將學生帶到他們需要學習的精確課程。系統能識別學生真正的知識缺口——一個 SAT 數學卡在 740 分的學生，經 Alpha 診斷發現是缺少三年級的基礎運算流暢度，補強後跳升至 790 分。AI 不是教更多，而是教「對的東西」。">The AI tutor brings students to the exact lessons they need to learn. The system identifies students' true knowledge gaps—a student stuck at 740 on SAT math was diagnosed by Alpha as lacking 3rd grade arithmetic fluency; after reinforcement, they jumped to 790. AI doesn't teach more; it teaches "the right things."</p>
+                            </div>
+                        </div>
+
+                        <div class="insight-item speech-segment alpha-segment" id="alpha-segment-7" data-en="Dynamic Adjustment—Maintaining the Zone of Proximal Development: If students start feeling overwhelmed, the system lowers difficulty to bring them back to their zone of proximal development; conversely, fast learners need to progress quickly. If you only need 5 repetitions to understand a concept, you shouldn't be forced to sit through 10; if I need 15 repetitions, I shouldn't only get 10. This is personalized pacing that traditional one-to-many classrooms can never achieve." data-zh="動態調整：維持「近側發展區」：如果學生開始感到不堪負荷，系統會降低難度讓他們回到近側發展區；另一方面，能快速學習的孩子需要快速進步。如果你只需要 5 次重複就能理解一個概念，就不該被迫坐著聽 10 次；如果我需要 15 次才能理解，就不該只給我 10 次。這是傳統一對多教室永遠無法實現的個人化節奏。">
+                            <span class="insight-number">07</span>
+                            <div class="insight-content">
+                                <h4 data-en="Dynamic Adjustment: Zone of Proximal Development" data-zh="動態調整：維持「近側發展區」">Dynamic Adjustment: Zone of Proximal Development</h4>
+                                <p data-en="If students start feeling overwhelmed, the system lowers difficulty to bring them back to their zone of proximal development; conversely, fast learners need to progress quickly. If you only need 5 repetitions to understand a concept, you shouldn't be forced to sit through 10; if I need 15 repetitions, I shouldn't only get 10. This is personalized pacing that traditional one-to-many classrooms can never achieve." data-zh="如果學生開始感到不堪負荷，系統會降低難度讓他們回到近側發展區；另一方面，能快速學習的孩子需要快速進步。如果你只需要 5 次重複就能理解一個概念，就不該被迫坐著聽 10 次；如果我需要 15 次才能理解，就不該只給我 10 次。這是傳統一對多教室永遠無法實現的個人化節奏。">If students start feeling overwhelmed, the system lowers difficulty to bring them back to their zone of proximal development; conversely, fast learners need to progress quickly. If you only need 5 repetitions to understand a concept, you shouldn't be forced to sit through 10; if I need 15 repetitions, I shouldn't only get 10. This is personalized pacing that traditional one-to-many classrooms can never achieve.</p>
+                            </div>
+                        </div>
+
+                        <div class="insight-item speech-segment alpha-segment" id="alpha-segment-8" data-en="Real-Time Feedback Loop—Behavioral Intervention: AI analyzes the accuracy and speed of students completing lessons in the background, then provides guidance: 'We notice your accuracy is a bit low because when you get answers wrong, you skip to the next question without reading the explanation, so we're going to slow down.' AI doesn't just look at 'right or wrong'—it observes 'learning behavior' and corrects it in real-time." data-zh="即時回饋迴圈：行為層級的介入：AI 在後台分析學生完成課程的準確度和速度，然後提供指導：「我們注意到你的準確率有點低，是因為你答錯時沒有花時間閱讀解釋就跳到下一題，所以我們要放慢速度。」AI 不只看「答對與否」，還觀察「學習行為」並即時糾正。">
+                            <span class="insight-number">08</span>
+                            <div class="insight-content">
+                                <h4 data-en="Real-Time Feedback Loop: Behavioral Intervention" data-zh="即時回饋迴圈：行為層級的介入">Real-Time Feedback Loop: Behavioral Intervention</h4>
+                                <p data-en="AI analyzes the accuracy and speed of students completing lessons in the background, then provides guidance: 'We notice your accuracy is a bit low because when you get answers wrong, you skip to the next question without reading the explanation, so we're going to slow down.' AI doesn't just look at 'right or wrong'—it observes 'learning behavior' and corrects it in real-time." data-zh="AI 在後台分析學生完成課程的準確度和速度，然後提供指導：「我們注意到你的準確率有點低，是因為你答錯時沒有花時間閱讀解釋就跳到下一題，所以我們要放慢速度。」AI 不只看「答對與否」，還觀察「學習行為」並即時糾正。">AI analyzes the accuracy and speed of students completing lessons in the background, then provides guidance: "We notice your accuracy is a bit low because when you get answers wrong, you skip to the next question without reading the explanation, so we're going to slow down." AI doesn't just look at "right or wrong"—it observes "learning behavior" and corrects it in real-time.</p>
+                            </div>
+                        </div>
+
+                        <div class="insight-item speech-segment alpha-segment" id="alpha-segment-9" data-en="Curriculum Curation—Cross-Platform Best Combinations: Not all apps excel equally at all grade levels or all subjects. Alpha has spent 11 years curating which curricula and apps work best for teaching different subjects—whether math, reading, science, or languages. AI's value isn't in any single tool, but in integrating multiple tools and selecting the best-fit resources for each student." data-zh="課程策展：跨平台的最佳組合：並非所有 App 在所有年級或所有科目都同樣優秀。Alpha 在過去 11 年間整理出哪些課程和 App 最適合教授不同科目，無論是數學、閱讀、科學還是語言。AI 的價值不只在單一工具，而在於整合多個工具並為每位學生選擇最適配的資源。">
+                            <span class="insight-number">09</span>
+                            <div class="insight-content">
+                                <h4 data-en="Curriculum Curation: Cross-Platform Best Combinations" data-zh="課程策展：跨平台的最佳組合">Curriculum Curation: Cross-Platform Best Combinations</h4>
+                                <p data-en="Not all apps excel equally at all grade levels or all subjects. Alpha has spent 11 years curating which curricula and apps work best for teaching different subjects—whether math, reading, science, or languages. AI's value isn't in any single tool, but in integrating multiple tools and selecting the best-fit resources for each student." data-zh="並非所有 App 在所有年級或所有科目都同樣優秀。Alpha 在過去 11 年間整理出哪些課程和 App 最適合教授不同科目，無論是數學、閱讀、科學還是語言。AI 的價值不只在單一工具，而在於整合多個工具並為每位學生選擇最適配的資源。">Not all apps excel equally at all grade levels or all subjects. Alpha has spent 11 years curating which curricula and apps work best for teaching different subjects—whether math, reading, science, or languages. AI's value isn't in any single tool, but in integrating multiple tools and selecting the best-fit resources for each student.</p>
+                            </div>
+                        </div>
+
+                        <div class="insight-item speech-segment alpha-segment" id="alpha-segment-10" data-en="Adaptive Algorithms, Not Generative AI: The so-called '2-hour AI learning' is closer to 3 hours, with a student-to-guide ratio of about 5:1, and no 'generative AI' is used. Alpha's AI core is an adaptive system for diagnosis, recommendation, tracking, and feedback—not ChatGPT-style dialogue generation. This reminds us: the value of educational AI lies not in 'how advanced' it is, but in 'how precisely it solves learning problems.'" data-zh="自適應演算法，而非生成式 AI：所謂的「兩小時 AI 學習」更接近三小時，師生比約為 5:1，而且沒有使用「生成式 AI」。Alpha 的 AI 核心是診斷、推薦、追蹤、回饋的自適應系統，而非 ChatGPT 式的對話生成。這提醒我們：教育 AI 的價值不在於「多先進」，而在於「多精準地解決學習問題」。">
+                            <span class="insight-number">10</span>
+                            <div class="insight-content">
+                                <h4 data-en="Adaptive Algorithms, Not Generative AI" data-zh="自適應演算法，而非生成式 AI">Adaptive Algorithms, Not Generative AI</h4>
+                                <p data-en="The so-called '2-hour AI learning' is closer to 3 hours, with a student-to-guide ratio of about 5:1, and no 'generative AI' is used. Alpha's AI core is an adaptive system for diagnosis, recommendation, tracking, and feedback—not ChatGPT-style dialogue generation. This reminds us: the value of educational AI lies not in 'how advanced' it is, but in 'how precisely it solves learning problems.'" data-zh="所謂的「兩小時 AI 學習」更接近三小時，師生比約為 5:1，而且沒有使用「生成式 AI」。Alpha 的 AI 核心是診斷、推薦、追蹤、回饋的自適應系統，而非 ChatGPT 式的對話生成。這提醒我們：教育 AI 的價值不在於「多先進」，而在於「多精準地解決學習問題」。">The so-called "2-hour AI learning" is closer to 3 hours, with a student-to-guide ratio of about 5:1, and no "generative AI" is used. Alpha's AI core is an adaptive system for diagnosis, recommendation, tracking, and feedback—not ChatGPT-style dialogue generation. This reminds us: the value of educational AI lies not in "how advanced" it is, but in "how precisely it solves learning problems."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </main>
+    </div>
+    <div class="tab-content" id="tab-quiz">
+        <main class="main-content">
+            <!-- Quiz Article Selector -->
+            <div class="quiz-article-selector">
+                <label data-en="Quiz for Article:" data-zh="測驗文章：">Quiz for Article:</label>
+                <select id="quizArticleSelect" onchange="switchQuizArticle(this.value)">
+                    <option value="mckinsey" data-en="McKinsey's Challenge" data-zh="麥肯錫的挑戰">McKinsey's Challenge</option>
+                    <option value="alpha" data-en="Alpha School" data-zh="Alpha School">Alpha School</option>
+                </select>
+            </div>
+
+            <!-- McKinsey Quiz Set -->
+            <div class="quiz-set active" id="quiz-mckinsey">
+                <div class="quiz-section">
+                    <div class="quiz-header">
+                        <h4 class="quiz-title">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                            <span data-en="McKinsey Quiz" data-zh="麥肯錫測驗">McKinsey Quiz</span>
+                        </h4>
+                        <div class="quiz-progress">
+                            <span data-en="Question" data-zh="第">Question</span>
+                            <span id="mckinsey-currentQ">1</span>/<span>3</span>
+                            <div class="quiz-progress-dots">
+                                <span class="quiz-dot active" data-q="1" data-quiz="mckinsey"></span>
+                                <span class="quiz-dot" data-q="2" data-quiz="mckinsey"></span>
+                                <span class="quiz-dot" data-q="3" data-quiz="mckinsey"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- McKinsey Q1 -->
+                    <div class="question-container active" id="mckinsey-q1">
+                        <p class="quiz-question" data-en="According to Sternfels, what percentage of McKinsey's current revenue comes from 'underwriting outcomes'?" data-zh="根據斯特恩費爾斯所述，麥肯錫目前有多少比例的營收來自「承諾成果交付」？">According to Sternfels, what percentage of McKinsey's current revenue comes from "underwriting outcomes"?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'mckinsey', 1)">
+                                <span class="option-marker">A</span>
+                                <span data-en="About 10%" data-zh="約10%">About 10%</span>
+                            </div>
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'mckinsey', 1)">
+                                <span class="option-marker">B</span>
+                                <span data-en="About 25%" data-zh="約25%">About 25%</span>
+                            </div>
+                            <div class="quiz-option" data-answer="correct" onclick="selectQuizOption(this, 'mckinsey', 1)">
+                                <span class="option-marker">C</span>
+                                <span data-en="About one-third (33%)" data-zh="約三分之一（33%）">About one-third (33%)</span>
+                            </div>
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'mckinsey', 1)">
+                                <span class="option-marker">D</span>
+                                <span data-en="About 50%" data-zh="約50%">About 50%</span>
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="mckinsey-feedback1"></div>
+                    </div>
+
+                    <!-- McKinsey Q2 -->
+                    <div class="question-container" id="mckinsey-q2">
+                        <p class="quiz-question" data-en="What key trait did McKinsey's AI analysis reveal as a strong predictor of becoming a partner?" data-zh="麥肯錫的AI分析發現哪項特質最能預測是否會成為合夥人？">What key trait did McKinsey's AI analysis reveal as a strong predictor of becoming a partner?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'mckinsey', 2)">
+                                <span class="option-marker">A</span>
+                                <span data-en="Perfect academic grades" data-zh="完美的學業成績">Perfect academic grades</span>
+                            </div>
+                            <div class="quiz-option" data-answer="correct" onclick="selectQuizOption(this, 'mckinsey', 2)">
+                                <span class="option-marker">B</span>
+                                <span data-en="Resilience after setbacks" data-zh="挫折後的韌性">Resilience after setbacks</span>
+                            </div>
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'mckinsey', 2)">
+                                <span class="option-marker">C</span>
+                                <span data-en="Elite university degrees" data-zh="頂尖大學學歷">Elite university degrees</span>
+                            </div>
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'mckinsey', 2)">
+                                <span class="option-marker">D</span>
+                                <span data-en="Prior consulting experience" data-zh="先前的顧問經驗">Prior consulting experience</span>
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="mckinsey-feedback2"></div>
+                    </div>
+
+                    <!-- McKinsey Q3 -->
+                    <div class="question-container" id="mckinsey-q3">
+                        <p class="quiz-question" data-en="What is McKinsey's '25 Squared' workforce strategy?" data-zh="麥肯錫的「25平方」人力策略是什麼？">What is McKinsey's "25 Squared" workforce strategy?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'mckinsey', 3)">
+                                <span class="option-marker">A</span>
+                                <span data-en="Hiring 25% more from top universities" data-zh="從頂尖大學多招聘25%">Hiring 25% more from top universities</span>
+                            </div>
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'mckinsey', 3)">
+                                <span class="option-marker">B</span>
+                                <span data-en="Reducing total headcount by 25%" data-zh="減少總人數25%">Reducing total headcount by 25%</span>
+                            </div>
+                            <div class="quiz-option" data-answer="correct" onclick="selectQuizOption(this, 'mckinsey', 3)">
+                                <span class="option-marker">C</span>
+                                <span data-en="Growing client-facing +25%, back-office -25%" data-zh="面對客戶+25%，後台-25%">Growing client-facing +25%, back-office -25%</span>
+                            </div>
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'mckinsey', 3)">
+                                <span class="option-marker">D</span>
+                                <span data-en="25 hours AI training per quarter" data-zh="每季25小時AI培訓">25 hours AI training per quarter</span>
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="mckinsey-feedback3"></div>
+                    </div>
+
+                    <!-- McKinsey Score -->
+                    <div class="question-container" id="mckinsey-scoreDisplay">
+                        <div class="quiz-score">
+                            <div class="score-display" id="mckinsey-finalScore">0/3</div>
+                            <p class="score-label" data-en="Questions Correct" data-zh="答對題數">Questions Correct</p>
+                        </div>
+                    </div>
+
+                    <div class="quiz-buttons">
+                        <button class="quiz-btn" id="mckinsey-checkBtn" onclick="checkQuizAnswer('mckinsey')" data-en="Check Answer" data-zh="確認答案">Check Answer</button>
+                        <button class="quiz-btn secondary" id="mckinsey-nextBtn" onclick="nextQuizQuestion('mckinsey')" style="display:none;" data-en="Next Question" data-zh="下一題">Next Question</button>
+                        <button class="quiz-btn secondary" id="mckinsey-restartBtn" onclick="restartQuizSet('mckinsey')" style="display:none;" data-en="Restart Quiz" data-zh="重新測驗">Restart Quiz</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alpha School Quiz Set -->
+            <div class="quiz-set" id="quiz-alpha">
+                <div class="quiz-section">
+                    <div class="quiz-header">
+                        <h4 class="quiz-title">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                            <span data-en="Alpha School Quiz" data-zh="Alpha School 測驗">Alpha School Quiz</span>
+                        </h4>
+                        <div class="quiz-progress">
+                            <span data-en="Question" data-zh="第">Question</span>
+                            <span id="alpha-currentQ">1</span>/<span>3</span>
+                            <div class="quiz-progress-dots">
+                                <span class="quiz-dot active" data-q="1" data-quiz="alpha"></span>
+                                <span class="quiz-dot" data-q="2" data-quiz="alpha"></span>
+                                <span class="quiz-dot" data-q="3" data-quiz="alpha"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alpha Q1 -->
+                    <div class="question-container active" id="alpha-q1">
+                        <p class="quiz-question" data-en="What mastery level does Alpha School require before a student can advance to the next unit?" data-zh="Alpha School 要求學生達到多少精熟度才能進入下一單元？">What mastery level does Alpha School require before a student can advance to the next unit?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'alpha', 1)">
+                                <span class="option-marker">A</span>
+                                <span data-en="70%" data-zh="70%">70%</span>
+                            </div>
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'alpha', 1)">
+                                <span class="option-marker">B</span>
+                                <span data-en="80%" data-zh="80%">80%</span>
+                            </div>
+                            <div class="quiz-option" data-answer="correct" onclick="selectQuizOption(this, 'alpha', 1)">
+                                <span class="option-marker">C</span>
+                                <span data-en="90%" data-zh="90%">90%</span>
+                            </div>
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'alpha', 1)">
+                                <span class="option-marker">D</span>
+                                <span data-en="100%" data-zh="100%">100%</span>
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="alpha-feedback1"></div>
+                    </div>
+
+                    <!-- Alpha Q2 -->
+                    <div class="question-container" id="alpha-q2">
+                        <p class="quiz-question" data-en="According to Alpha School, what percentage of students report loving school?" data-zh="根據 Alpha School 數據，約有多少比例的學生表示喜愛學校？">According to Alpha School, what percentage of students report loving school?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'alpha', 2)">
+                                <span class="option-marker">A</span>
+                                <span data-en="About 76%" data-zh="約76%">About 76%</span>
+                            </div>
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'alpha', 2)">
+                                <span class="option-marker">B</span>
+                                <span data-en="About 86%" data-zh="約86%">About 86%</span>
+                            </div>
+                            <div class="quiz-option" data-answer="correct" onclick="selectQuizOption(this, 'alpha', 2)">
+                                <span class="option-marker">C</span>
+                                <span data-en="About 96%" data-zh="約96%">About 96%</span>
+                            </div>
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'alpha', 2)">
+                                <span class="option-marker">D</span>
+                                <span data-en="About 100%" data-zh="約100%">About 100%</span>
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="alpha-feedback2"></div>
+                    </div>
+
+                    <!-- Alpha Q3 -->
+                    <div class="question-container" id="alpha-q3">
+                        <p class="quiz-question" data-en="What type of AI does Alpha School primarily use for education?" data-zh="Alpha School 主要使用什麼類型的 AI 進行教育？">What type of AI does Alpha School primarily use for education?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'alpha', 3)">
+                                <span class="option-marker">A</span>
+                                <span data-en="Generative AI like ChatGPT" data-zh="生成式AI如ChatGPT">Generative AI like ChatGPT</span>
+                            </div>
+                            <div class="quiz-option" data-answer="correct" onclick="selectQuizOption(this, 'alpha', 3)">
+                                <span class="option-marker">B</span>
+                                <span data-en="Adaptive algorithms for diagnosis & feedback" data-zh="診斷與回饋的自適應演算法">Adaptive algorithms for diagnosis & feedback</span>
+                            </div>
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'alpha', 3)">
+                                <span class="option-marker">C</span>
+                                <span data-en="Image recognition AI" data-zh="圖像識別AI">Image recognition AI</span>
+                            </div>
+                            <div class="quiz-option" data-answer="wrong" onclick="selectQuizOption(this, 'alpha', 3)">
+                                <span class="option-marker">D</span>
+                                <span data-en="Voice assistant AI" data-zh="語音助理AI">Voice assistant AI</span>
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="alpha-feedback3"></div>
+                    </div>
+
+                    <!-- Alpha Score -->
+                    <div class="question-container" id="alpha-scoreDisplay">
+                        <div class="quiz-score">
+                            <div class="score-display" id="alpha-finalScore">0/3</div>
+                            <p class="score-label" data-en="Questions Correct" data-zh="答對題數">Questions Correct</p>
+                        </div>
+                    </div>
+
+                    <div class="quiz-buttons">
+                        <button class="quiz-btn" id="alpha-checkBtn" onclick="checkQuizAnswer('alpha')" data-en="Check Answer" data-zh="確認答案">Check Answer</button>
+                        <button class="quiz-btn secondary" id="alpha-nextBtn" onclick="nextQuizQuestion('alpha')" style="display:none;" data-en="Next Question" data-zh="下一題">Next Question</button>
+                        <button class="quiz-btn secondary" id="alpha-restartBtn" onclick="restartQuizSet('alpha')" style="display:none;" data-en="Restart Quiz" data-zh="重新測驗">Restart Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Speech Control Bar -->
+    <div class="global-speech-bar" id="globalSpeechBar">
+        <div class="global-speech-info">
+            <span class="global-speech-title" id="globalSpeechTitle" data-en="Now Playing..." data-zh="正在播放...">Now Playing...</span>
+            <div class="global-speech-progress">
+                <div class="global-thermometer">
+                    <div class="global-thermometer-fill" id="globalProgress"></div>
+                </div>
+                <span class="global-speech-time" id="globalTime">0:00 / 0:00</span>
+            </div>
+        </div>
+        <div class="global-speech-controls">
+            <button class="global-btn play-pause" id="globalPlayPause" onclick="toggleSpeechGlobal(event)" title="Play/Pause">
+                <svg id="globalPlayIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
+                </svg>
+            </button>
+            <button class="global-btn stop" id="globalStop" onclick="stopSpeechGlobal(event)" title="Stop">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="6" y="6" width="12" height="12"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="logo-mark">
+                            <span>SML</span>
+                        </div>
+                        <span class="brand-name">SML Insights</span>
+                    </div>
+                    <p class="footer-description" data-en="An interactive learning platform delivering curated business intelligence and strategic insights for executives and management professionals." data-zh="為高階主管與管理專業人士提供精選商業情報與策略洞察的互動學習平台。">An interactive learning platform delivering curated business intelligence and strategic insights for executives and management professionals.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Creative Editor" data-zh="創意編輯">Creative Editor</h4>
+                    <div class="editor-card">
+                        <div class="editor-avatar">SL</div>
+                        <div class="editor-info">
+                            <h5>Prof. Shihmin Lo</h5>
+                            <a href="https://www.ibs.ncnu.edu.tw/index.php/faculty/tenured-professor/299-smlo" target="_blank" rel="noopener noreferrer" class="editor-link">
+                                <span data-en="View Profile" data-zh="查看個人檔案">View Profile</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                    <polyline points="15 3 21 3 21 9"/>
+                                    <line x1="10" y1="14" x2="21" y2="3"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright" data-en="© 2026 SML Insights. All rights reserved." data-zh="© 2026 SML Insights. 保留所有權利。">© 2026 SML Insights. All rights reserved.</p>
+                <span class="footer-version" data-en="Version 1.3 | January 12, 2026" data-zh="版本 1.3 | 2026年1月12日">Version 1.3 | January 12, 2026</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language state
+        let currentLang = 'en';
+        
+        // Theme state
+        let currentTheme = 'light';
+
+        // Tab state
+        let currentTab = 'search';
+
+        // Article state
+        let currentArticle = 'mckinsey';
+
+        // Quiz state
+        let currentQuestion = 1;
+        let totalQuestions = 3;
+        let score = 0;
+        let selectedOptions = {};
+        let answeredQuestions = {};
+
+        // Speech state
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        let isSpeaking = false;
+        let isPaused = false;
+        let speechStartTime = 0;
+        let estimatedDuration = 0;
+        let progressInterval = null;
+        let currentSegmentIndex = 0;
+        let segments = [];
+        let pausedTime = 0;
+
+        // Scroll to top
+        function scrollToTop(event) {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Article switching
+        function switchArticle(articleId) {
+            // Stop any ongoing speech
+            if (isSpeaking || isPaused) {
+                stopSpeech();
+            }
+            
+            currentArticle = articleId;
+            
+            // Hide all articles
+            document.querySelectorAll('.article-content').forEach(article => {
+                article.classList.remove('active');
+            });
+            
+            // Show selected article
+            document.getElementById(`${articleId}-article`).classList.add('active');
+            
+            // Scroll to top of article
+            document.querySelector('.article-selector').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Tab switching
+        function switchTab(tabName) {
+            currentTab = tabName;
+            
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-tab') === tabName) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            
+            // Scroll to top of content
+            window.scrollTo({ top: 200, behavior: 'smooth' });
+        }
+
+        // Toggle Language
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+            document.getElementById('langLabel').textContent = currentLang === 'en' ? '中文' : 'EN';
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-en]').forEach(el => {
+                if (el.tagName !== 'OPTION') {
+                    el.textContent = el.getAttribute(`data-${currentLang}`);
+                }
+            });
+            
+            // Update placeholders
+            document.querySelectorAll('[data-placeholder-en]').forEach(el => {
+                el.placeholder = el.getAttribute(`data-placeholder-${currentLang}`);
+            });
+
+            // Update select options
+            document.querySelectorAll('select option').forEach(option => {
+                if (option.hasAttribute('data-en')) {
+                    option.textContent = option.getAttribute(`data-${currentLang}`);
+                }
+            });
+
+            // Stop and reset speech when language changes
+            if (isSpeaking || isPaused) {
+                stopSpeech();
+            }
+        }
+
+        // Toggle Theme
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            
+            const themeIcon = document.getElementById('themeIcon');
+            const themeLabel = document.getElementById('themeLabel');
+            
+            if (currentTheme === 'dark') {
+                themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+                themeLabel.setAttribute('data-en', 'Light');
+                themeLabel.setAttribute('data-zh', '淺色');
+            } else {
+                themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+                themeLabel.setAttribute('data-en', 'Dark');
+                themeLabel.setAttribute('data-zh', '深色');
+            }
+            
+            themeLabel.textContent = themeLabel.getAttribute(`data-${currentLang}`);
+        }
+
+        // Initialize segments based on current article
+        function initSegments() {
+            segments = [];
+            
+            if (currentArticle === 'mckinsey') {
+                // McKinsey article has segments 0-5
+                for (let i = 0; i <= 5; i++) {
+                    const el = document.getElementById(`segment-${i}`);
+                    if (el) {
+                        segments.push({
+                            element: el,
+                            text: el.getAttribute(`data-${currentLang}`)
+                        });
+                    }
+                }
+            } else if (currentArticle === 'alpha') {
+                // Alpha article has segments 0-10
+                for (let i = 0; i <= 10; i++) {
+                    const el = document.getElementById(`alpha-segment-${i}`);
+                    if (el) {
+                        segments.push({
+                            element: el,
+                            text: el.getAttribute(`data-${currentLang}`)
+                        });
+                    }
+                }
+            }
+        }
+
+        // Get voice
+        function getVoice() {
+            const voices = speechSynthesis.getVoices();
+            
+            if (currentLang === 'en') {
+                let voice = voices.find(v => v.lang === 'en-GB' && v.name.toLowerCase().includes('male'));
+                if (!voice) voice = voices.find(v => v.lang === 'en-GB');
+                if (!voice) voice = voices.find(v => v.lang.startsWith('en'));
+                return voice;
+            } else {
+                let voice = voices.find(v => v.name.includes('Yating') || v.name.includes('雅婷'));
+                if (!voice) voice = voices.find(v => v.lang === 'zh-TW');
+                if (!voice) voice = voices.find(v => v.lang.startsWith('zh'));
+                return voice;
+            }
+        }
+
+        // Toggle speech (button click)
+        function toggleSpeech(event) {
+            event.stopPropagation();
+            
+            if (!isSpeaking && !isPaused) {
+                startSpeech();
+            } else if (isPaused) {
+                resumeSpeech();
+            } else {
+                pauseSpeech();
+            }
+        }
+
+        // Start speech
+        function startSpeech() {
+            initSegments();
+            currentSegmentIndex = 0;
+            speakSegment(currentSegmentIndex);
+            
+            // Add click listener for pause/resume
+            document.addEventListener('click', handleGlobalClick);
+        }
+
+        // Speak a specific segment
+        function speakSegment(index) {
+            if (index >= segments.length) {
+                stopSpeech();
+                return;
+            }
+            
+            currentSegmentIndex = index;
+            highlightSegment(index);
+            
+            const segment = segments[index];
+            currentUtterance = new SpeechSynthesisUtterance(segment.text);
+            
+            const voice = getVoice();
+            if (voice) {
+                currentUtterance.voice = voice;
+            }
+            
+            currentUtterance.lang = currentLang === 'en' ? 'en-GB' : 'zh-TW';
+            currentUtterance.rate = 0.9;
+            currentUtterance.pitch = 1;
+            
+            // Calculate estimated duration for this segment
+            if (currentLang === 'en') {
+                const wordCount = segment.text.split(/\s+/).length;
+                estimatedDuration = (wordCount / 150) * 60 * 1000;
+            } else {
+                estimatedDuration = (segment.text.length / 200) * 60 * 1000;
+            }
+            
+            currentUtterance.onstart = () => {
+                isSpeaking = true;
+                isPaused = false;
+                speechStartTime = Date.now();
+                updateSpeechUI();
+                startProgressTracking();
+                autoScrollToSegment(index);
+            };
+            
+            currentUtterance.onend = () => {
+                if (!isPaused) {
+                    // Move to next segment
+                    speakSegment(index + 1);
+                }
+            };
+            
+            currentUtterance.onerror = (e) => {
+                if (e.error !== 'interrupted') {
+                    stopSpeech();
+                }
+            };
+            
+            speechSynthesis.speak(currentUtterance);
+        }
+
+        // Highlight current segment
+        function highlightSegment(index) {
+            // Remove all highlights
+            segments.forEach((seg, i) => {
+                seg.element.classList.remove('active');
+            });
+            
+            // Add highlight to current
+            if (segments[index]) {
+                segments[index].element.classList.add('active');
+            }
+        }
+
+        // Auto scroll to segment if near bottom
+        function autoScrollToSegment(index) {
+            if (!segments[index]) return;
+            
+            const element = segments[index].element;
+            const rect = element.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            
+            // If element is in lower 30% of viewport, scroll to center
+            if (rect.bottom > viewportHeight * 0.7) {
+                const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
+                const offset = viewportHeight / 2 - rect.height / 2;
+                
+                window.scrollTo({
+                    top: elementTop - offset,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Pause speech
+        function pauseSpeech() {
+            speechSynthesis.pause();
+            isPaused = true;
+            isSpeaking = false;
+            pausedTime = Date.now() - speechStartTime;
+            
+            if (progressInterval) {
+                clearInterval(progressInterval);
+            }
+            
+            updateSpeechUI();
+            showPauseHint();
+        }
+
+        // Resume speech
+        function resumeSpeech() {
+            speechSynthesis.resume();
+            isPaused = false;
+            isSpeaking = true;
+            speechStartTime = Date.now() - pausedTime;
+            
+            updateSpeechUI();
+            hidePauseHint();
+            startProgressTracking();
+        }
+
+        // Stop speech
+        function stopSpeech() {
+            speechSynthesis.cancel();
+            isSpeaking = false;
+            isPaused = false;
+            currentSegmentIndex = 0;
+            
+            if (progressInterval) {
+                clearInterval(progressInterval);
+                progressInterval = null;
+            }
+            
+            // Remove highlights
+            segments.forEach(seg => {
+                seg.element.classList.remove('active');
+            });
+            
+            // Remove click listener
+            document.removeEventListener('click', handleGlobalClick);
+            
+            updateSpeechUI();
+            resetProgress();
+            hidePauseHint();
+        }
+
+        // Handle global click for pause/resume
+        function handleGlobalClick(event) {
+            // Ignore clicks on control buttons
+            if (event.target.closest('#readAloudControls') || event.target.closest('#readAloudControls2')) {
+                return;
+            }
+            
+            if (isSpeaking) {
+                pauseSpeech();
+            } else if (isPaused) {
+                resumeSpeech();
+            }
+        }
+
+        // Show pause hint
+        function showPauseHint() {
+            const hint = document.getElementById('pauseHint');
+            hint.classList.add('show');
+            setTimeout(() => {
+                if (isPaused) {
+                    hint.classList.remove('show');
+                }
+            }, 2000);
+        }
+
+        // Hide pause hint
+        function hidePauseHint() {
+            document.getElementById('pauseHint').classList.remove('show');
+        }
+
+        // Update speech UI
+        function updateSpeechUI() {
+            // Determine which set of controls to update based on current article
+            const suffix = currentArticle === 'alpha' ? '2' : '';
+            const btn = document.getElementById(`readAloudBtn${suffix}`);
+            const playIcon = document.getElementById(`playIcon${suffix}`);
+            const label = document.getElementById(`readAloudLabel${suffix}`);
+            const status = document.getElementById(`speechStatus${suffix}`);
+            
+            if (btn) {
+                btn.classList.remove('playing', 'paused');
+                
+                if (isSpeaking) {
+                    btn.classList.add('playing');
+                    playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+                    label.setAttribute('data-en', 'Pause');
+                    label.setAttribute('data-zh', '暫停');
+                    status.setAttribute('data-en', 'Click anywhere to pause');
+                    status.setAttribute('data-zh', '點擊任意處暫停');
+                    status.style.display = 'block';
+                } else if (isPaused) {
+                    btn.classList.add('paused');
+                    playIcon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+                    label.setAttribute('data-en', 'Resume');
+                    label.setAttribute('data-zh', '繼續');
+                    status.setAttribute('data-en', 'Click anywhere to resume');
+                    status.setAttribute('data-zh', '點擊任意處繼續');
+                    status.style.display = 'block';
+                } else {
+                    playIcon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+                    label.setAttribute('data-en', 'Read Aloud');
+                    label.setAttribute('data-zh', '語音朗讀');
+                    status.style.display = 'none';
+                }
+                
+                label.textContent = label.getAttribute(`data-${currentLang}`);
+                status.textContent = status.getAttribute(`data-${currentLang}`);
+            }
+            
+            // Also update global speech bar
+            updateGlobalSpeechBar();
+        }
+
+        // Progress tracking
+        function startProgressTracking() {
+            if (progressInterval) {
+                clearInterval(progressInterval);
+            }
+            
+            // Calculate total duration for all segments
+            let totalDuration = 0;
+            let currentDuration = 0;
+            
+            segments.forEach((seg, i) => {
+                let segDuration;
+                if (currentLang === 'en') {
+                    segDuration = (seg.text.split(/\s+/).length / 150) * 60 * 1000;
+                } else {
+                    segDuration = (seg.text.length / 200) * 60 * 1000;
+                }
+                totalDuration += segDuration;
+                if (i < currentSegmentIndex) {
+                    currentDuration += segDuration;
+                }
+            });
+            
+            const suffix = currentArticle === 'alpha' ? '2' : '';
+            
+            progressInterval = setInterval(() => {
+                if (!isSpeaking) {
+                    return;
+                }
+                
+                const elapsed = Date.now() - speechStartTime;
+                const totalElapsed = currentDuration + elapsed;
+                const progress = Math.min((totalElapsed / totalDuration) * 100, 100);
+                
+                // Update article-specific progress
+                const progressEl = document.getElementById(`speechProgress${suffix}`);
+                const timeEl = document.getElementById(`speechTime${suffix}`);
+                
+                if (progressEl) progressEl.style.width = progress + '%';
+                
+                const elapsedSec = Math.floor(totalElapsed / 1000);
+                const totalSec = Math.floor(totalDuration / 1000);
+                const timeText = formatTime(elapsedSec) + ' / ' + formatTime(totalSec);
+                
+                if (timeEl) timeEl.textContent = timeText;
+                
+                // Also update global progress bar
+                const globalProgress = document.getElementById('globalProgress');
+                const globalTime = document.getElementById('globalTime');
+                if (globalProgress) globalProgress.style.width = progress + '%';
+                if (globalTime) globalTime.textContent = timeText;
+            }, 100);
+        }
+
+        // Reset progress
+        function resetProgress() {
+            const suffix = currentArticle === 'alpha' ? '2' : '';
+            const progressEl = document.getElementById(`speechProgress${suffix}`);
+            const timeEl = document.getElementById(`speechTime${suffix}`);
+            
+            if (progressEl) progressEl.style.width = '0%';
+            if (timeEl) timeEl.textContent = '0:00 / 0:00';
+            
+            // Also reset global progress
+            const globalProgress = document.getElementById('globalProgress');
+            const globalTime = document.getElementById('globalTime');
+            if (globalProgress) globalProgress.style.width = '0%';
+            if (globalTime) globalTime.textContent = '0:00 / 0:00';
+        }
+
+        // Format time
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return mins + ':' + (secs < 10 ? '0' : '') + secs;
+        }
+
+        // Load voices
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = () => {};
+        }
+
+        // Quiz state per article
+        let quizState = {
+            mckinsey: { currentQuestion: 1, score: 0, selectedOptions: {}, answeredQuestions: {} },
+            alpha: { currentQuestion: 1, score: 0, selectedOptions: {}, answeredQuestions: {} }
+        };
+
+        let currentQuizArticle = 'mckinsey';
+
+        // Switch quiz article
+        function switchQuizArticle(articleId) {
+            currentQuizArticle = articleId;
+            
+            document.querySelectorAll('.quiz-set').forEach(set => {
+                set.classList.remove('active');
+            });
+            document.getElementById(`quiz-${articleId}`).classList.add('active');
+        }
+
+        // Select quiz option
+        function selectQuizOption(element, quizId, questionNum) {
+            if (quizState[quizId].answeredQuestions[questionNum]) return;
+            
+            document.querySelectorAll(`#${quizId}-q${questionNum} .quiz-option`).forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            element.classList.add('selected');
+            quizState[quizId].selectedOptions[questionNum] = element;
+        }
+
+        // Check quiz answer
+        function checkQuizAnswer(quizId) {
+            const state = quizState[quizId];
+            const selected = state.selectedOptions[state.currentQuestion];
+            
+            if (!selected) {
+                alert(currentLang === 'en' ? 'Please select an answer first.' : '請先選擇一個答案。');
+                return;
+            }
+
+            const feedback = document.getElementById(`${quizId}-feedback${state.currentQuestion}`);
+            const isCorrect = selected.getAttribute('data-answer') === 'correct';
+            
+            state.answeredQuestions[state.currentQuestion] = true;
+            if (isCorrect) state.score++;
+            
+            document.querySelectorAll(`#${quizId}-q${state.currentQuestion} .quiz-option`).forEach(opt => {
+                opt.classList.remove('selected');
+                if (opt.getAttribute('data-answer') === 'correct') {
+                    opt.classList.add('correct');
+                } else if (opt === selected && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            const feedbackMessages = {
+                mckinsey: {
+                    1: {
+                        success: { en: '✓ Correct! About one-third of McKinsey\'s revenue comes from underwriting outcomes.', zh: '✓ 正確！麥肯錫約三分之一的營收來自承諾成果交付。' },
+                        error: { en: '✗ The correct answer is C. About one-third (33%).', zh: '✗ 正確答案是 C。約三分之一（33%）。' }
+                    },
+                    2: {
+                        success: { en: '✓ Correct! Resilience after setbacks predicts partnership success.', zh: '✓ 正確！挫折後的韌性是預測成為合夥人的重要指標。' },
+                        error: { en: '✗ The correct answer is B. Resilience after setbacks.', zh: '✗ 正確答案是 B。挫折後的韌性。' }
+                    },
+                    3: {
+                        success: { en: '✓ Correct! Client-facing +25%, back-office -25%.', zh: '✓ 正確！面對客戶+25%，後台-25%。' },
+                        error: { en: '✗ The correct answer is C. Growing client-facing by 25% while cutting back-office by 25%.', zh: '✗ 正確答案是 C。面對客戶職位增加25%，後台削減25%。' }
+                    }
+                },
+                alpha: {
+                    1: {
+                        success: { en: '✓ Correct! Alpha requires 90% mastery before advancing.', zh: '✓ 正確！Alpha 要求達到 90% 精熟度才能進入下一單元。' },
+                        error: { en: '✗ The correct answer is C. 90% mastery is required.', zh: '✗ 正確答案是 C。需要達到 90% 精熟度。' }
+                    },
+                    2: {
+                        success: { en: '✓ Correct! About 96% of students report loving school.', zh: '✓ 正確！約 96% 學生表示喜愛學校。' },
+                        error: { en: '✗ The correct answer is C. About 96%.', zh: '✗ 正確答案是 C。約 96%。' }
+                    },
+                    3: {
+                        success: { en: '✓ Correct! Alpha uses adaptive algorithms, not generative AI.', zh: '✓ 正確！Alpha 使用自適應演算法，而非生成式 AI。' },
+                        error: { en: '✗ The correct answer is B. Adaptive algorithms for diagnosis & feedback.', zh: '✗ 正確答案是 B。診斷與回饋的自適應演算法。' }
+                    }
+                }
+            };
+
+            feedback.classList.remove('success', 'error');
+            feedback.classList.add('show');
+            
+            if (isCorrect) {
+                feedback.classList.add('success');
+                feedback.innerHTML = feedbackMessages[quizId][state.currentQuestion].success[currentLang];
+            } else {
+                feedback.classList.add('error');
+                feedback.innerHTML = feedbackMessages[quizId][state.currentQuestion].error[currentLang];
+            }
+
+            document.querySelector(`.quiz-dot[data-quiz="${quizId}"][data-q="${state.currentQuestion}"]`).classList.add('completed');
+            
+            document.getElementById(`${quizId}-checkBtn`).style.display = 'none';
+            
+            if (state.currentQuestion < 3) {
+                document.getElementById(`${quizId}-nextBtn`).style.display = 'inline-block';
+            } else {
+                document.getElementById(`${quizId}-restartBtn`).style.display = 'inline-block';
+                showQuizScore(quizId);
+            }
+        }
+
+        // Next quiz question
+        function nextQuizQuestion(quizId) {
+            const state = quizState[quizId];
+            
+            document.getElementById(`${quizId}-q${state.currentQuestion}`).classList.remove('active');
+            
+            state.currentQuestion++;
+            document.getElementById(`${quizId}-currentQ`).textContent = state.currentQuestion;
+            
+            document.getElementById(`${quizId}-q${state.currentQuestion}`).classList.add('active');
+            
+            document.querySelectorAll(`.quiz-dot[data-quiz="${quizId}"]`).forEach(dot => {
+                dot.classList.remove('active');
+                if (parseInt(dot.getAttribute('data-q')) === state.currentQuestion) {
+                    dot.classList.add('active');
+                }
+            });
+            
+            document.getElementById(`${quizId}-nextBtn`).style.display = 'none';
+            document.getElementById(`${quizId}-checkBtn`).style.display = 'inline-block';
+        }
+
+        // Show quiz score
+        function showQuizScore(quizId) {
+            const state = quizState[quizId];
+            document.getElementById(`${quizId}-q${state.currentQuestion}`).classList.remove('active');
+            document.getElementById(`${quizId}-scoreDisplay`).classList.add('active');
+            document.getElementById(`${quizId}-finalScore`).textContent = `${state.score}/3`;
+        }
+
+        // Restart quiz set
+        function restartQuizSet(quizId) {
+            quizState[quizId] = { currentQuestion: 1, score: 0, selectedOptions: {}, answeredQuestions: {} };
+            
+            document.getElementById(`${quizId}-currentQ`).textContent = '1';
+            document.getElementById(`${quizId}-scoreDisplay`).classList.remove('active');
+            
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`${quizId}-q${i}`).classList.remove('active');
+                const fb = document.getElementById(`${quizId}-feedback${i}`);
+                if (fb) fb.classList.remove('show', 'success', 'error');
+                document.querySelectorAll(`#${quizId}-q${i} .quiz-option`).forEach(opt => {
+                    opt.classList.remove('selected', 'correct', 'incorrect');
+                });
+            }
+            
+            document.getElementById(`${quizId}-q1`).classList.add('active');
+            
+            document.querySelectorAll(`.quiz-dot[data-quiz="${quizId}"]`).forEach((dot, index) => {
+                dot.classList.remove('active', 'completed');
+                if (index === 0) dot.classList.add('active');
+            });
+            
+            document.getElementById(`${quizId}-checkBtn`).style.display = 'inline-block';
+            document.getElementById(`${quizId}-nextBtn`).style.display = 'none';
+            document.getElementById(`${quizId}-restartBtn`).style.display = 'none';
+        }
+
+        // Global speech controls
+        function toggleSpeechGlobal(event) {
+            event.stopPropagation();
+            if (isPaused) {
+                resumeSpeech();
+            } else if (isSpeaking) {
+                pauseSpeech();
+            }
+        }
+
+        function stopSpeechGlobal(event) {
+            event.stopPropagation();
+            stopSpeech();
+        }
+
+        // Update global speech bar
+        function updateGlobalSpeechBar() {
+            const bar = document.getElementById('globalSpeechBar');
+            const playPauseBtn = document.getElementById('globalPlayPause');
+            const playIcon = document.getElementById('globalPlayIcon');
+            const title = document.getElementById('globalSpeechTitle');
+            
+            if (isSpeaking || isPaused) {
+                bar.classList.add('active');
+                
+                // Update title based on current article
+                const articleTitles = {
+                    mckinsey: { en: 'McKinsey\'s Challenge', zh: '麥肯錫的挑戰' },
+                    alpha: { en: 'Alpha School', zh: 'Alpha School' }
+                };
+                title.textContent = articleTitles[currentArticle][currentLang];
+                
+                // Update play/pause button
+                playPauseBtn.classList.remove('paused');
+                if (isPaused) {
+                    playPauseBtn.classList.add('paused');
+                    playIcon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+                } else {
+                    playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+                }
+            } else {
+                bar.classList.remove('active');
+            }
+        }
+
+        // Filter functionality
+        function applyFilters() {
+            const category = document.getElementById('categoryFilter').value;
+            const date = document.getElementById('dateFilter').value;
+            const keyword = document.getElementById('keywordSearch').value;
+            
+            // Switch to article tab after filtering
+            switchTab('article');
+            
+            const msg = currentLang === 'en'
+                ? `Filters applied! Showing results for:\nCategory: ${category}\nDate: ${date}\nKeyword: ${keyword || 'None'}`
+                : `已套用篩選！顯示結果：\n類別：${category}\n日期：${date}\n關鍵字：${keyword || '無'}`;
+            
+            alert(msg);
+        }
+    </script>
+</body>
+</html>
